@@ -1,0 +1,23 @@
+const apiAiasData = {
+    url: 'https://www.aiaschain.com/api/',
+    type: 'masternode',
+    id: window.prompt("Enter you address: ")
+}
+const {url, type, id} = apiAiasData
+const apiUrl = `${url}${type}/${id}`
+
+fetch(apiUrl)
+    .then( (data) => (data.json()))
+    .then( (aiasNodes) => generateHtml(aiasNodes) )
+
+const generateHtml = (data) => {
+    console.log(data)
+    const html = `
+    <div class="name">${data.mns.status}
+        <span>address: ${data.mns.addr}</span>
+    </div>
+    `
+
+    const AiasCoinDiv = document.querySelector('.AiasCoin')
+    AiasCoinDiv.innerHTML = html
+}
